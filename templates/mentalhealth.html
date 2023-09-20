@@ -1,0 +1,83 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <title>Mental Health Bot</title>
+        <link rel="stylesheet" href="/static/styles.css">
+    </head>
+    <body>
+        <img src="/static/bbkg.png" style="width: 100%;">
+        <div class="main-container">
+            <div class="parent-1">
+                <div class="input-container">
+                    <input type="text" id="user-text" name="user-text" rows="4" cols="50" placeholder="Type your health-related question..." onkeydown="handleKeyDown(event)"></input>
+                    <button type="submit" onclick="sendMessage()">Ask</button>
+                    
+                </div>
+            </div>
+            <img src="/static/logov2.png" alt="" class="logov2">
+            <div class="parent-2">
+                <div class="chat-messages">
+                    <div class="message bot-message">Hello! How can I assist you \n with your health?</div>
+                </div>
+                <img src="/static/cat.png" class="cat-sizing">
+                <img src="/static/loadingv2.gif" class = "loading-img">
+            </div>
+            
+        </div>
+        
+    <script>
+        function sendMessage() {
+            
+            
+            var userText = document.getElementById("user-text").value;
+            document.getElementById("user-text").value = "";
+
+            // Create a new user message
+            
+            var userMessage = document.createElement("div");
+            userMessage.classList.add("message", "user-message");
+            userMessage.textContent =  userText;
+
+            // Append user message to chat
+            var chatMessages = document.querySelector(".chat-messages");
+            chatMessages.appendChild(userMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            var loadingImg = document.querySelector(".loading-img");
+            loadingImg.style.display = "block";
+            
+            fetch("/send-message", {
+                method: "POST",
+                body: JSON.stringify({ user_input: userText }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // chatbox.innerHTML += "<p>Chatbot: " + data.response + "</p>";\
+                // Simulate bot response (replace with actual chatbot logic)
+                
+                setTimeout(function () {
+                    var botMessage = document.createElement("div");
+                    botMessage.classList.add("message", "bot-message");
+                    botMessage.textContent = data.response;
+                    chatMessages.appendChild(botMessage);
+
+                    // Scroll to the latest message
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    loadingImg.style.display = "none";
+            }, 1000); // Simulated delay (1 second)
+            });
+            
+            
+            
+        }
+        function handleKeyDown(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+    </script>
+    </body>
+</html>
