@@ -1,7 +1,7 @@
 from gpt_wrapper import GPTAPI
 
 # Change API Key if needed
-GPT_API = GPTAPI(api_key="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")#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")
+GPT_API = GPTAPI(api_key="YOUR-OPENAI-API-KEY-HERE")
 
 def converse_gpt(input_text = "", system_rules = ""):
     output = GPT_API.chat_output_text_only(input_text,system_rules)
