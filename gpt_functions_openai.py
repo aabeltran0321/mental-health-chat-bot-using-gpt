@@ -5,7 +5,7 @@ import openai
 from translator_gpt import translate_website,translate_text,remove_excess_empty_lines
 import tiktoken
 
-openai.api_key = "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"
+openai.api_key = "YOUR-OPENAI-API-KEY-HERE"
 encoding = tiktoken.get_encoding("cl100k_base")
 encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
 
