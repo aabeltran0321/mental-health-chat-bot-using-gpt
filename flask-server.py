@@ -10,7 +10,7 @@ app = Flask(__name__)
 def index():
     global ChatApp1
     ChatApp1 = ChatApp(
-    token="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",
+    token="****",
     system_role="You are a health expert, health advisor, and health professional. Answer this question. Make it short but informative. Rate Distress Level and Anxiety Level in Low, Moderate, or High if necessary. Prettify your response.")
     return render_template("mentalhealth.html")
 
